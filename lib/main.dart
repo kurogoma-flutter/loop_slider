@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ボトムシート表示
                 showModalBottomSheet(
                   context: context,
-                  builder: (context) => const BottomSheetWidget(),
+                  builder: (context) => const _BottomSheetWidget(),
                 );
               },
               child: const Center(
@@ -103,11 +103,12 @@ class _CarouselSlider extends StatelessWidget {
         child: CarouselSlider.builder(
           itemCount: images.length,
           itemBuilder:
-              (BuildContext context, int itemIndex, int pageViewIndex) =>
-                  _CarouselCard(image: images[itemIndex]),
+              (BuildContext context, int itemIndex, int pageViewIndex) {
+            return _CarouselCard(image: images[itemIndex]);
+          },
           options: CarouselOptions(
             height: 180,
-            viewportFraction: 0.35,
+            viewportFraction: 0.35, // カルーセルの横幅を管理します
           ),
         ),
       ),
@@ -142,8 +143,8 @@ class _CarouselCard extends StatelessWidget {
 }
 
 /// ボトムシートの定義
-class BottomSheetWidget extends StatelessWidget {
-  const BottomSheetWidget({super.key});
+class _BottomSheetWidget extends StatelessWidget {
+  const _BottomSheetWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -158,12 +159,13 @@ class BottomSheetWidget extends StatelessWidget {
         color: Color.fromARGB(42, 255, 255, 255),
       ),
       child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            children: [
-              _CarouselSlider(),
-            ],
-          )),
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          children: [
+            _CarouselSlider(),
+          ],
+        ),
+      ),
     );
   }
 }
